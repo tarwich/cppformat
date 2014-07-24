@@ -440,10 +440,13 @@ class fmt::internal::ArgFormatter :
       default:
         internal::ReportUnknownType(spec_.type_, "char");
       }
-    }
-    if (spec_.align_ == ALIGN_NUMERIC || spec_.flags_ != 0)
-      throw FormatError("invalid format specifier for char");
-    typedef typename fmt::BasicWriter<Char>::CharPtr CharPtr;
+      if(spec_.flags_ != 0) throw FormatError("invalid format specifier for char");
+	}
+	else {
+      if (spec_.align_ == ALIGN_NUMERIC || spec_.flags_ != 0)
+        throw FormatError("invalid format specifier for char");
+	}
+	typedef typename fmt::BasicWriter<Char>::CharPtr CharPtr;
     CharPtr out = CharPtr();
     if (spec_.width_ > 1) {
       Char fill = static_cast<Char>(spec_.fill());
